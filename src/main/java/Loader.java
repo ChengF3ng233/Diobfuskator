@@ -14,7 +14,7 @@ public class Loader {
                 .input(Path.of("work", "input.jar"))
                 .output(Path.of("work", "deobf.jar"))
                 .transformers(
-                        new LemonTransformer()
+
                 )
                 .readerFlags(ClassReader.SKIP_FRAMES)
                 .clean()
