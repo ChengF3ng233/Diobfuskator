@@ -105,14 +105,16 @@ public class Diobfuskator extends Util {
         CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
 
         for (ClassWrapper wrapper : classes.values()) {
-            if (!wrapper.noTransform()) {
-                for (Transformer transformer : config.transformers) {
-                    transformer.transform(wrapper, wrapper.getNode());
+            executor.execute(() -> {
+                if (!wrapper.noTransform()) {
+                    for (Transformer transformer : config.transformers) {
+                        transformer.transform(wrapper, wrapper.getNode());
+                    }
                 }
-            }
 
-            write.put(wrapper.getName() + ".class", wrapper.toByteArray());
-            latch.countDown();
+                write.put(wrapper.getName() + ".class", wrapper.toByteArray());
+                latch.countDown();
+            });
         }
 
         latch.await();
