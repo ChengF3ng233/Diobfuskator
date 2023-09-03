@@ -1,5 +1,4 @@
 import cn.feng.Diobfuskator;
-import cn.feng.transform.composed.LemonTransformer;
 import org.objectweb.asm.ClassReader;
 
 import java.nio.file.Path;
@@ -17,7 +16,7 @@ public class Loader {
 
                 )
                 .readerFlags(ClassReader.SKIP_FRAMES)
-                .clean()
+                //.clean()
                 .execute();
     }
 }

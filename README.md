@@ -19,6 +19,7 @@ To configure deobfuscator for your preferences you need to edit **Loader** class
 
 Actually, it's in development.
 - Lemon Obfuscator (idk)
+- Bozar Obfuscator
 - ***some fucking shit code generators***
 
 ---

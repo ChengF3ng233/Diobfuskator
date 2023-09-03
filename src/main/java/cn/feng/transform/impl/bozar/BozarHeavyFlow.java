@@ -1,6 +1,5 @@
 package cn.feng.transform.impl.bozar;
 
-import cn.feng.hierarchy.Hierarchy;
 import cn.feng.transform.Transformer;
 import org.objectweb.asm.tree.*;
 
@@ -180,7 +179,7 @@ public class BozarHeavyFlow extends Transformer {
     }
 
     @Override
-    public void transform(ClassNode node, Hierarchy hierarchy) {
+    public void transform(ClassNode node) {
         trans(node);
     }
 }

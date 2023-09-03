@@ -1,6 +1,5 @@
 package cn.feng.transform.impl.lemon;
 
-import cn.feng.hierarchy.Hierarchy;
 import cn.feng.transform.Transformer;
 import cn.feng.util.InstructionModifier;
 import org.objectweb.asm.tree.*;
@@ -11,7 +10,7 @@ import org.objectweb.asm.tree.*;
  **/
 public class LemonFlow extends Transformer {
     @Override
-    public void transform(ClassNode node, Hierarchy hierarchy) {
+    public void transform(ClassNode node) {
         node.fields.removeIf(field -> (field.value instanceof String && field.name.startsWith("lemon") && isChinese((String) field.value)) || field.name.equals("Ꮸ"));
 
 

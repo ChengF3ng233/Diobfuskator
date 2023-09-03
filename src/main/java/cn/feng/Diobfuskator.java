@@ -1,6 +1,5 @@
 package cn.feng;
 
-import cn.feng.hierarchy.Hierarchy;
 import cn.feng.transform.Transformer;
 import cn.feng.transform.impl.clean.CleanTransformer;
 import cn.feng.util.Util;
@@ -26,10 +25,9 @@ import java.util.zip.ZipOutputStream;
  * @since 2023/9/2
  **/
 public class Diobfuskator extends Util {
-    private final Map<ClassNode, byte[]> classes = new ConcurrentHashMap<>();
-    private final Hierarchy hierarchy = new Hierarchy();
+    public final int THREAD_COUNT = Runtime.getRuntime().availableProcessors();
     private final Builder config;
-    private final int THREAD_COUNT = Runtime.getRuntime().availableProcessors();
+    public Map<ClassNode, byte[]> classes = new ConcurrentHashMap<>();
 
     private Diobfuskator(Builder builder) {
         config = builder;
@@ -110,7 +108,7 @@ public class Diobfuskator extends Util {
             executor.execute(() -> {
                 if (!noTransform(node)) {
                     for (Transformer transformer : config.transformers) {
-                        transformer.transform(node, hierarchy);
+                        transformer.transform(node);
                     }
                 }
 

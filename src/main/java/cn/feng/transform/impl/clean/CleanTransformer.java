@@ -1,6 +1,5 @@
 package cn.feng.transform.impl.clean;
 
-import cn.feng.hierarchy.Hierarchy;
 import cn.feng.transform.Transformer;
 import org.objectweb.asm.tree.*;
 
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
  **/
 public class CleanTransformer extends Transformer {
     @Override
-    public void transform(ClassNode node, Hierarchy hierarchy) {
+    public void transform(ClassNode node) {
         node.visibleAnnotations = filterAnnotations(node.visibleAnnotations);
         node.invisibleAnnotations = filterAnnotations(node.invisibleAnnotations);
 
