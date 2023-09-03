@@ -6,7 +6,13 @@ import me.coley.cafedude.classfile.ClassFile;
 import me.coley.cafedude.io.ClassFileReader;
 import me.coley.cafedude.io.ClassFileWriter;
 import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
+
+import java.lang.reflect.Modifier;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 /**
@@ -35,6 +41,21 @@ public class Util {
         }
 
         return classNode;
+    }
+
+    public static boolean noTransform(ClassNode node) {
+        return Modifier.isInterface(node.access);
+    }
+
+    public static byte[] getClassBytes(ClassNode node, int flags, byte[] data) {
+        try {
+            ClassWriter writer = new ClassWriter(flags);
+            node.accept(writer);
+            return writer.toByteArray();
+        } catch (Exception e) {
+            Util.info("ERROR: Wrote [" + node.name + "] with original bytes.");
+            return data;
+        }
     }
     public static boolean isChinese(String str) {
         for (int i = 0; i < str.length(); i++) {

@@ -1,8 +1,8 @@
 package cn.feng.transform.impl.misc;
 
+import cn.feng.hierarchy.Hierarchy;
 import cn.feng.transform.Transformer;
 import cn.feng.util.MathHelper;
-import cn.feng.wrapper.ClassWrapper;
 import org.objectweb.asm.tree.*;
 
 /**
@@ -21,7 +21,7 @@ public class UniversalNumber extends Transformer {
     }
 
     @Override
-    public void transform(ClassWrapper wrapper, ClassNode node) {
+    public void transform(ClassNode node, Hierarchy hierarchy) {
         for (MethodNode method : node.methods) {
             transform(node, method);
         }

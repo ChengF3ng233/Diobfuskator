@@ -1,7 +1,7 @@
 package cn.feng.transform.impl.lemon;
 
+import cn.feng.hierarchy.Hierarchy;
 import cn.feng.transform.Transformer;
-import cn.feng.wrapper.ClassWrapper;
 import org.objectweb.asm.tree.*;
 
 /**
@@ -10,7 +10,7 @@ import org.objectweb.asm.tree.*;
  **/
 public class LemonString extends Transformer {
     @Override
-    public void transform(ClassWrapper wrapper, ClassNode node) {
+    public void transform(ClassNode node, Hierarchy hierarchy) {
         decrypt(node);
         node.methods.removeIf(it -> isAccess(it.access, ACC_PRIVATE | ACC_STATIC) && it.desc.equals("(Ljava/lang/String;I)Ljava/lang/String;"));
     }

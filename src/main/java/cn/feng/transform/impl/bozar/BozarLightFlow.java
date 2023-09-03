@@ -1,7 +1,7 @@
 package cn.feng.transform.impl.bozar;
 
+import cn.feng.hierarchy.Hierarchy;
 import cn.feng.transform.Transformer;
-import cn.feng.wrapper.ClassWrapper;
 import org.objectweb.asm.tree.*;
 
 import java.util.Arrays;
@@ -77,7 +77,7 @@ public class BozarLightFlow extends Transformer {
     }
 
     @Override
-    public void transform(ClassWrapper wrapper, ClassNode node) {
+    public void transform(ClassNode node, Hierarchy hierarchy) {
         trans(node);
     }
 }

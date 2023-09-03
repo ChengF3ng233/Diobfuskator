@@ -1,8 +1,8 @@
 package cn.feng.transform.impl.bozar;
 
+import cn.feng.hierarchy.Hierarchy;
 import cn.feng.transform.Transformer;
 import cn.feng.util.ASMHelper;
-import cn.feng.wrapper.ClassWrapper;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.LabelNode;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 public class BozarConstantFlow extends Transformer {
     @Override
-    public void transform(ClassWrapper wrapper, ClassNode node) {
+    public void transform(ClassNode node, Hierarchy hierarchy) {
         node.methods.forEach(methodNode -> Arrays.stream(methodNode.instructions.toArray())
                 .filter(ASMHelper::isNumber)
                 .filter(it -> it.getNext() instanceof LabelNode)

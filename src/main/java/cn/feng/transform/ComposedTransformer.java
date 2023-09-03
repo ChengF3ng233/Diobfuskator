@@ -1,6 +1,6 @@
 package cn.feng.transform;
 
-import cn.feng.wrapper.ClassWrapper;
+import cn.feng.hierarchy.Hierarchy;
 import org.objectweb.asm.tree.ClassNode;
 
 import java.util.List;
@@ -13,9 +13,9 @@ public abstract class ComposedTransformer extends Transformer {
     protected abstract List<Transformer> getTransformers();
 
     @Override
-    public void transform(ClassWrapper wrapper, ClassNode node) {
+    public void transform(ClassNode node, Hierarchy hierarchy) {
         for (Transformer transformer : getTransformers()) {
-            transformer.transform(wrapper, node);
+            transformer.transform(node, hierarchy);
         }
     }
 }

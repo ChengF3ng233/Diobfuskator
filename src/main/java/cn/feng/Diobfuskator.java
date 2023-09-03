@@ -1,9 +1,9 @@
 package cn.feng;
 
+import cn.feng.hierarchy.Hierarchy;
 import cn.feng.transform.Transformer;
 import cn.feng.transform.impl.clean.CleanTransformer;
 import cn.feng.util.Util;
-import cn.feng.wrapper.ClassWrapper;
 import me.coley.cafedude.InvalidClassException;
 import org.apache.commons.io.IOUtils;
 import org.objectweb.asm.tree.ClassNode;
@@ -26,7 +26,8 @@ import java.util.zip.ZipOutputStream;
  * @since 2023/9/2
  **/
 public class Diobfuskator extends Util {
-    private final Map<String, ClassWrapper> classes = new ConcurrentHashMap<>();
+    private final Map<ClassNode, byte[]> classes = new ConcurrentHashMap<>();
+    private final Hierarchy hierarchy = new Hierarchy();
     private final Builder config;
     private final int THREAD_COUNT = Runtime.getRuntime().availableProcessors();
 
@@ -36,8 +37,8 @@ public class Diobfuskator extends Util {
 
     private void execute() {
         long start = System.currentTimeMillis();
-        info("Running: ");
-        config.transformers.forEach(it -> info(it.getClass().getSimpleName()));
+        info("Running transformers: ");
+        config.transformers.forEach(it -> info("-" + it.getClass().getSimpleName()));
         try (ZipOutputStream zos = new ZipOutputStream(Files.newOutputStream(config.output));
              JarFile jar = new JarFile(config.input.toFile())) {
             Map<String, byte[]> write = new ConcurrentHashMap<>();
@@ -87,7 +88,7 @@ public class Diobfuskator extends Util {
                     return;
                 }
 
-                classes.put(node.name + ".class", new ClassWrapper(node, data, config.WRITER_FLAGS));
+                classes.put(node, data);
                 latch.countDown();
             });
         }
@@ -104,15 +105,16 @@ public class Diobfuskator extends Util {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
         CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
 
-        for (ClassWrapper wrapper : classes.values()) {
+        for (Map.Entry<ClassNode, byte[]> entry : classes.entrySet()) {
+            ClassNode node = entry.getKey();
             executor.execute(() -> {
-                if (!wrapper.noTransform()) {
+                if (!noTransform(node)) {
                     for (Transformer transformer : config.transformers) {
-                        transformer.transform(wrapper, wrapper.getNode());
+                        transformer.transform(node, hierarchy);
                     }
                 }
 
-                write.put(wrapper.getName() + ".class", wrapper.toByteArray());
+                write.put(node.name + ".class", getClassBytes(node, config.WRITER_FLAGS, entry.getValue()));
                 latch.countDown();
             });
         }
@@ -150,6 +152,7 @@ public class Diobfuskator extends Util {
             this.transformers.add(new CleanTransformer());
             return this;
         }
+
         public Builder input(Path input) {
             this.input = input;
             return this;

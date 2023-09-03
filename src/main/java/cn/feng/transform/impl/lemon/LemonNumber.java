@@ -1,7 +1,7 @@
 package cn.feng.transform.impl.lemon;
 
+import cn.feng.hierarchy.Hierarchy;
 import cn.feng.transform.Transformer;
-import cn.feng.wrapper.ClassWrapper;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -12,7 +12,7 @@ import org.objectweb.asm.tree.MethodNode;
  **/
 public class LemonNumber extends Transformer {
     @Override
-    public void transform(ClassWrapper wrapper, ClassNode node) {
+    public void transform(ClassNode node, Hierarchy hierarchy) {
         for (MethodNode method : node.methods) {
             boolean found;
             do {
