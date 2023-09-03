@@ -26,7 +26,7 @@ Actually, it's in development.
 
 ### Transformers
 > If you know nothing bout deobfuscation use **precomposed** ones\
-> Most of the transformers are done without frames, so they might not work sometimes
+> ~~Most of~~ All the transformers are done without frames, so ~~they might~~ 99% of the deobfuscated jars are not work ~~sometimes~~
 
 ---
 
