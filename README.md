@@ -1,5 +1,5 @@
 # Diobfuskator
-#### a cool deobfuscator
+#### super simple, super fast
 *this document is copied from [narumii's Deobfuscator](https://github.com/narumii/Deobfuscator/) LOL*
 
 ---
