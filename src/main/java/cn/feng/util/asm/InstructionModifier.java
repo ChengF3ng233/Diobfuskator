@@ -79,6 +79,12 @@ public class InstructionModifier {
     }
   }
 
+  public void removeAll(AbstractInsnNode... toRemove) {
+    for (AbstractInsnNode insn : toRemove) {
+      remove(insn);
+    }
+  }
+
   public void apply(MethodNode methodNode) {
     prepends.forEach((insn, list) -> methodNode.instructions.insertBefore(insn, list));
     appends.forEach((insn, list) -> methodNode.instructions.insert(insn, list));
