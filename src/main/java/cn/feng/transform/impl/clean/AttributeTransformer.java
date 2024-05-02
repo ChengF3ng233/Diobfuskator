@@ -8,12 +8,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author ChengFeng
- * @since 2023/9/2
- **/
-public class CleanTransformer extends Transformer {
+ * @Author: ChengFeng
+ * @CreateTime: 2024-05-02
+ */
+public class AttributeTransformer extends Transformer {
     @Override
     public void transform(ClassNode node) {
+
         node.visibleAnnotations = filterAnnotations(node.visibleAnnotations);
         node.invisibleAnnotations = filterAnnotations(node.invisibleAnnotations);
 
@@ -43,6 +44,8 @@ public class CleanTransformer extends Transformer {
             });
 
             methodNode.tryCatchBlocks.removeAll(toRemove);
+
+            methodNode.localVariables = null;
         });
 
         node.fields.forEach(fieldNode -> {

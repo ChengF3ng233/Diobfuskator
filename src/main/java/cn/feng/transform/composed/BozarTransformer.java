@@ -6,7 +6,6 @@ import cn.feng.transform.impl.bozar.BozarConstantFlow;
 import cn.feng.transform.impl.bozar.BozarHeavyFlow;
 import cn.feng.transform.impl.bozar.BozarLightFlow;
 import cn.feng.transform.impl.bozar.BozarString;
-import cn.feng.transform.impl.clean.CleanTransformer;
 import cn.feng.transform.impl.misc.UniversalNumber;
 
 import java.util.List;

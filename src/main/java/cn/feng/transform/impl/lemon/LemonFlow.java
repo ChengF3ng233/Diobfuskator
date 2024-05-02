@@ -1,7 +1,7 @@
 package cn.feng.transform.impl.lemon;
 
 import cn.feng.transform.Transformer;
-import cn.feng.util.InstructionModifier;
+import cn.feng.util.asm.InstructionModifier;
 import org.objectweb.asm.tree.*;
 
 /**

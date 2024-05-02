@@ -1,5 +1,6 @@
-package cn.feng.util;
+package cn.feng.util.asm;
 
+import cn.feng.util.Util;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;

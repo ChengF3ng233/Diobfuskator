@@ -1,7 +1,7 @@
 package cn.feng;
 
 import cn.feng.transform.Transformer;
-import cn.feng.transform.impl.clean.CleanTransformer;
+import cn.feng.transform.composed.CleanTransformer;
 import cn.feng.util.Util;
 import me.coley.cafedude.InvalidClassException;
 import org.apache.commons.io.IOUtils;
